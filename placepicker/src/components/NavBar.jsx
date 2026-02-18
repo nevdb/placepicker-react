@@ -4,10 +4,10 @@ import { useState } from "react";
 export default function NavBar() {
   const [open, setOpen] = useState(false);
 
-  const linkBase =
-    "px-3 py-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500";
-  const active = "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-300";
-  const inactive = "text-gray-700";
+  const linkBase = "px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-700";
+  const active =
+    "bg-amber-600 text-white hover:bg-blue-700  focus:ring-blue-300";
+  const inactive = "text-gray-300";
 
   return (
     <header className="border-b">
@@ -24,12 +24,12 @@ export default function NavBar() {
         aria-label="Primary navigation"
         role="navigation"
       >
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between gap-1 h-14">
           <div className="font-semibold">MyApp</div>
 
           {/* Mobile toggle */}
           <button
-            className="sm:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="sm:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-amber-500"
             aria-expanded={open}
             aria-controls="primary-menu"
             onClick={() => setOpen((v) => !v)}

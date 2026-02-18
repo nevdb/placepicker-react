@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import globe from "./../assets/globe.png";
 import "./../App.css";
-import { AVAILABLE_PLACES } from "../data.js";
+import { AVAILABLE_PLACES } from "../data/data.js";
 import Modal from "../components/Modal.jsx";
 import DeleteConfirmation from "../components/DeleteConfirmation.jsx";
 import Places from "../components/Places.jsx";
@@ -12,7 +12,7 @@ const storedPlaces = storedIds.map((id) =>
   AVAILABLE_PLACES.find((place) => place.id === id),
 );
 
-function Placepicker() {
+function PlacePicker() {
   const selectedPlace = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
@@ -111,4 +111,4 @@ function Placepicker() {
   );
 }
 
-export default Placepicker;
+export default PlacePicker;

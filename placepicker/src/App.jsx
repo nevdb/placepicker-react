@@ -114,7 +114,7 @@
 // export default App;
 
 import "./App.css";
-import { AVAILABLE_PLACES } from "./data";
+import { AVAILABLE_PLACES } from "./data/data";
 
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
