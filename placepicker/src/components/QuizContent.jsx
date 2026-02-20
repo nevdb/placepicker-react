@@ -1,27 +1,71 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import QUESTIONS from "../data/questions.js";
+import quizCompleted from "../assets/quiz-completed.webp";
+import QuestionTimer from "../components/QuestionTimer.jsx";
 
 export default function QuizContent() {
   const [userAnswers, setUserAnswers] = useState([]);
 
   const activeQuestionIndex = userAnswers.length;
+  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  function handleSelectAnswer(selectedAnswer) {
-    setUserAnswers((prevPickedPlaces) => {
-      return [...prevPickedPlaces, selectedAnswer];
+  function shuffleArray(arr) {
+    return [...arr].sort(() => Math.random() - 0.5);
+  }
+
+  const [shuffledAnswers, setShuffledAnswers] = useState(() =>
+    shuffleArray(QUESTIONS[0].answers),
+  );
+
+  const handleSelectAnswer = useCallback((selectedAnswer) => {
+    setUserAnswers((prev) => {
+      const updated = [...prev, selectedAnswer];
+      const nextIndex = updated.length;
+
+      if (nextIndex < QUESTIONS.length) {
+        setShuffledAnswers(shuffleArray(QUESTIONS[nextIndex].answers));
+      }
+
+      return updated;
     });
+  }, []);
+
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer],
+  );
+
+  if (quizIsComplete) {
+    return (
+      <div className="max-w-[50rem] m-auto p-8 bg-violet-500 rounded-lg text-center items-center flex flex-col ">
+        <img
+          src={quizCompleted}
+          alt="Quiz completed icon"
+          className="h-32 w-auto"
+        />
+        <h2>Quiz Completed!</h2>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-[50rem] m-auto p-8 bg-[linear-gradient(180deg,_#3e2a60_0%,_#321061_100%)] rounded-lg shadow-[1px_1px_8px_4px_rgba(12,5,32,0.6)] text-center">
+    <div className="max-w-[50rem] m-auto p-8 bg-violet-500 rounded-lg text-center">
       <div id="question">
-        <h2>{QUESTIONS[activeQuestionIndex].text}</h2>;
+        <QuestionTimer
+          key={activeQuestionIndex}
+          timeout={10000}
+          onTimeout={handleSkipAnswer}
+        />
+        <h2 className="text-amber-100">
+          {QUESTIONS[activeQuestionIndex].text}
+        </h2>
+
         <ul className="list-none m-0 p-0 flex flex-col items-center gap-2">
-          {QUESTIONS[activeQuestionIndex].answers.map((answer) => (
+          {shuffledAnswers.map((answer) => (
             <li key={answer} className="w-[90%] mx-auto">
               <button
-                className="inline-block w-full font-['Roboto_Condensed',sans-serif] text-[0.9rem] px-8 py-4 border-none rounded-[24px] bg-[#6cb7f5] cursor-pointer transition-all duration-200 ease-in-out hover:bg-[#9d5af5] hover:text-white focus:bg-[#9d5af5] focus:text-white"
+                className="inline-block w-full text-sm px-8 py-4 rounded-[24px] bg-violet-950 hover:bg-amber-500 hover:text-white"
                 onClick={() => handleSelectAnswer(answer)}
               >
                 {answer}
