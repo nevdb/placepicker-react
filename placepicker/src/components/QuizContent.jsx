@@ -1,13 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Fragment } from "react";
 
 import QUESTIONS from "../data/questions.js";
 import quizCompleted from "../assets/quiz-completed.webp";
+import Answers from "./Answers.jsx";
 import QuestionTimer from "../components/QuestionTimer.jsx";
 
 export default function QuizContent() {
+  const [answerState, setAnswerState] = useState(""); // "", "answered", "correct", "wrong"
   const [userAnswers, setUserAnswers] = useState([]);
 
-  const activeQuestionIndex = userAnswers.length;
+  const activeQuestionIndex =
+    answerState === "" ? userAnswers.length : userAnswers.length - 1;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   function shuffleArray(arr) {
@@ -18,18 +21,40 @@ export default function QuizContent() {
     shuffleArray(QUESTIONS[0].answers),
   );
 
-  const handleSelectAnswer = useCallback((selectedAnswer) => {
-    setUserAnswers((prev) => {
-      const updated = [...prev, selectedAnswer];
-      const nextIndex = updated.length;
+  const handleSelectAnswer = useCallback(
+    function handleSelectAnswer(selectedAnswer) {
+      // Lock UI to current question & show "answered" state
+      setAnswerState("answered");
 
-      if (nextIndex < QUESTIONS.length) {
-        setShuffledAnswers(shuffleArray(QUESTIONS[nextIndex].answers));
-      }
+      // We'll compute nextIndex as soon as we push the answer
+      let nextIndex;
+      setUserAnswers((prevUserAnswers) => {
+        nextIndex = prevUserAnswers.length + 1;
+        return [...prevUserAnswers, selectedAnswer];
+      });
 
-      return updated;
-    });
-  }, []);
+      // After a short delay, show correctness for the *current* question
+      setTimeout(() => {
+        const correctAnswer = QUESTIONS[activeQuestionIndex].answers[0];
+        if (selectedAnswer === correctAnswer) {
+          setAnswerState("correct");
+        } else {
+          setAnswerState("wrong");
+        }
+
+        // After the feedback phase, advance to the next question and reshuffle its answers
+        setTimeout(() => {
+          setAnswerState(""); // this will make activeQuestionIndex = nextIndex
+
+          // Only update shuffled answers if we still have a next question
+          if (nextIndex < QUESTIONS.length) {
+            setShuffledAnswers(shuffleArray(QUESTIONS[nextIndex].answers));
+          }
+        }, 2000);
+      }, 1000);
+    },
+    [activeQuestionIndex], // we use it to check correctness after 1s
+  );
 
   const handleSkipAnswer = useCallback(
     () => handleSelectAnswer(null),
@@ -52,28 +77,20 @@ export default function QuizContent() {
   return (
     <div className="max-w-[50rem] m-auto p-8 bg-violet-500 rounded-lg text-center">
       <div id="question">
-        <QuestionTimer
-          key={activeQuestionIndex}
-          timeout={10000}
-          onTimeout={handleSkipAnswer}
-        />
-        <h2 className="text-amber-100">
-          {QUESTIONS[activeQuestionIndex].text}
-        </h2>
-
-        <ul className="list-none m-0 p-0 flex flex-col items-center gap-2">
-          {shuffledAnswers.map((answer) => (
-            <li key={answer} className="w-[90%] mx-auto">
-              <button
-                className="inline-block w-full text-sm px-8 py-4 rounded-[24px] bg-violet-950 hover:bg-amber-500 hover:text-white"
-                onClick={() => handleSelectAnswer(answer)}
-              >
-                {answer}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <Fragment key={activeQuestionIndex}>
+          <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} />
+          <h2 className="text-amber-100">
+            {QUESTIONS[activeQuestionIndex].text}
+          </h2>
+          <Answers
+            answers={shuffledAnswers}
+            selectedAnswer={userAnswers[userAnswers.length - 1]}
+            answerState={answerState}
+            onSelect={handleSelectAnswer}
+          />
+        </Fragment>
       </div>
     </div>
   );
 }
+``;
