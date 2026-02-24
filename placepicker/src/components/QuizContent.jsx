@@ -1,9 +1,9 @@
 import { useState, useCallback, Fragment } from "react";
 
 import QUESTIONS from "../data/questions.js";
-import quizCompleted from "../assets/quiz-completed.webp";
 import Answers from "./Answers.jsx";
 import QuestionTimer from "../components/QuestionTimer.jsx";
+import Summary from "./Summary.jsx";
 
 export default function QuizContent() {
   const [answerState, setAnswerState] = useState(""); // "", "answered", "correct", "wrong"
@@ -62,20 +62,11 @@ export default function QuizContent() {
   );
 
   if (quizIsComplete) {
-    return (
-      <div className="max-w-[50rem] m-auto p-8 bg-violet-500 rounded-lg text-center items-center flex flex-col ">
-        <img
-          src={quizCompleted}
-          alt="Quiz completed icon"
-          className="h-32 w-auto"
-        />
-        <h2>Quiz Completed!</h2>
-      </div>
-    );
+    return <Summary userAnswers={userAnswers} />;
   }
 
   return (
-    <div className="max-w-[50rem] m-auto p-8 bg-violet-500 rounded-lg text-center">
+    <div className="max-w-3xl m-auto p-8 bg-violet-500 rounded-lg text-center">
       <div id="question">
         <Fragment key={activeQuestionIndex}>
           <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} />
