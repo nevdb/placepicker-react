@@ -1,5 +1,5 @@
 import quizCompleted from "../assets/quiz-completed.webp";
-import QUESTIONS from "../data/questions";
+import QUESTIONS from "../../data/questions";
 
 export default function Summary({ userAnswers }) {
   const skippedAnswers = userAnswers.filter((answer) => answer === null);
