@@ -1,14 +1,14 @@
-import belogradchik from './assets/belogradchik.jpg';
-import koprivshtica from './assets/koprivshtica.jpg';
-import nesebar from './assets/nesebar.jpg';
-import perperikon from './assets/perperikon.jpg';
-import pirin from './assets/pirin.jpg';
-import provdiv from './assets/plovdiv.jpg';
-import rilaMonestary from './assets/rila-monestary.jpg';
-import sofia from './assets/sofia.jpg';
-import varna from './assets/varna.jpg';
-import velikoTarnovo from './assets/veliko-tarnovo.jpg';
-import zheravna from './assets/zheravna.jpg';
+import belogradchik from './../assets/belogradchik.jpg';
+import koprivshtica from './../assets/koprivshtica.jpg';
+import nesebar from './../assets/nesebar.jpg';
+import perperikon from './../assets/perperikon.jpg';
+import pirin from './../assets/pirin.jpg';
+import provdiv from './../assets/plovdiv.jpg';
+import rilaMonestary from './../assets/rila-monestary.jpg';
+import sofia from './../assets/sofia.jpg';
+import varna from './../assets/varna.jpg';
+import velikoTarnovo from './../assets/veliko-tarnovo.jpg';
+import zheravna from './../assets/zheravna.jpg';
 
 
 export const AVAILABLE_PLACES = [

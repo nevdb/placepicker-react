@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,19 +15,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
-}
+} */
 
-body {
+/* body {
   margin: 0;
   padding: 2 rem;
-}
+} */
 
 h1 {
   font-size: 3.2em;
@@ -38,7 +40,6 @@ h2 {
   margin: 0;
   padding: 0;
   margin-bottom: 1rem;
-  color: #8feeff;
   text-align: center;
 }
 
@@ -49,7 +50,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -59,6 +60,24 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.selected {
+  /* background: linear-gradient(180deg, #fbda81 0%, #f8b173 100%); */
+  background: #f5a76c;
+  color: #2c203d;
+}
+
+.correct {
+  /* background: linear-gradient(180deg, #a1fa61 0%, #52d482 100%); */
+  background: #5af59d;
+  color: #2c203d;
+}
+
+.wrong {
+  /* background: linear-gradient(180deg, #f96fb1 0%, #f52b8c 100%); */
+  background: #f55a98;
+  color: #2c203d;
 }
 
 header {
