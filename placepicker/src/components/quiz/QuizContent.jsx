@@ -1,8 +1,8 @@
 import { useState, useCallback, Fragment } from "react";
 
 import QUESTIONS from "../../data/questions.js";
-import Answers from "../Answers.jsx";
-import QuestionTimer from "../QuestionTimer.jsx";
+import Answers from "./Answers.jsx";
+import QuestionTimer from "./QuestionTimer.jsx";
 import Summary from "./Summary.jsx";
 
 export default function QuizContent() {

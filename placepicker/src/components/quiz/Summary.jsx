@@ -1,4 +1,4 @@
-import quizCompleted from "../assets/quiz-completed.webp";
+import quizCompleted from "../../assets/quiz-completed.webp";
 import QUESTIONS from "../../data/questions";
 
 export default function Summary({ userAnswers }) {

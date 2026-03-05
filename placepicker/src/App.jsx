@@ -114,13 +114,14 @@
 // export default App;
 
 import "./App.css";
-import { AVAILABLE_PLACES } from "./data/data";
+import { AVAILABLE_PLACES } from "./data/data.js";
 
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import PlacePicker from "./pages/PlacePicker";
 import Quiz from "./pages/Quiz";
+import Counter from "./pages/Counter";
 
 export default function App() {
   return (
@@ -131,6 +132,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="placepicker" element={<PlacePicker />} />
           <Route path="quiz" element={<Quiz />} />
+          <Route path="counter" element={<Counter />} />
+
           {/* 404 fallback */}
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>

@@ -86,6 +86,16 @@ export default function NavBar() {
                 Quiz
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/counter"
+                className={({ isActive }) =>
+                  `${linkBase} ${isActive ? active : inactive}`
+                }
+              >
+                Counter
+              </NavLink>
+            </li>
           </ul>
         </div>
       </nav>
