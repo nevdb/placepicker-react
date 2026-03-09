@@ -96,6 +96,16 @@ export default function NavBar() {
                 Counter
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/users"
+                className={({ isActive }) =>
+                  `${linkBase} ${isActive ? active : inactive}`
+                }
+              >
+                Users
+              </NavLink>
+            </li>
           </ul>
         </div>
       </nav>
