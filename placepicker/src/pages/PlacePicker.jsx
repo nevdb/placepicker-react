@@ -3,9 +3,9 @@ import globe from "./../assets/globe.png";
 import "./../App.css";
 import { AVAILABLE_PLACES } from "../data/data.js";
 import Modal from "../components/Modal.jsx";
-import DeleteConfirmation from "../components/DeleteConfirmation.jsx";
-import Places from "../components/Places.jsx";
-import { sortPlacesByDistance } from "../loc.js";
+import DeleteConfirmation from "../components/placepicker/DeleteConfirmation.jsx";
+import Places from "../components/placepicker/Places.jsx";
+import { sortPlacesByDistance } from "../utils/loc.js";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>

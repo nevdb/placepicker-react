@@ -1,5 +1,5 @@
 import quiz from "./../assets/quiz.png";
-import QuizContent from "../components/QuizContent";
+import QuizContent from "../components/quiz/QuizContent";
 
 export default function Quiz() {
   return (
