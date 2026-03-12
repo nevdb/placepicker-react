@@ -2,7 +2,7 @@ import { Fragment, Component } from "react";
 
 import UsersList from "../users/UsersList";
 import UsersContext from "../users/users-context";
-
+import ErrorBoundary from "../users/ErrorBoundary";
 class UserFinder extends Component {
   static contextType = UsersContext;
 
@@ -42,7 +42,9 @@ class UserFinder extends Component {
             className="bg-rose-900 text-rose border border-rose-900 rounded-xl py-3 px-8 "
           />
         </div>
-        <UsersList users={this.state.filteredUsers} />
+        <ErrorBoundary>
+          <UsersList users={this.state.filteredUsers} />
+        </ErrorBoundary>
       </Fragment>
     );
   }
